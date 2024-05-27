@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
+import 'sorce.dart';
 
 class Page2 extends StatelessWidget {
   @override
@@ -80,9 +81,6 @@ class Page2 extends StatelessWidget {
                 ),
               ),
             ),
-        
-
-
 
             // 成绩区
             Expanded(
@@ -92,15 +90,13 @@ class Page2 extends StatelessWidget {
                   Expanded(
                     // flex: 1,
                     child: Container(
-                      color: Colors.black,
-                      child: Center(child: Text('成绩区域')),
+                      color: Color.fromARGB(255, 220, 22, 22),
+                      child: TimeLine(),
                     ),
                   ),
                 ],
               ),
             ),
-
-
 
             // 底部区域
             Expanded(
@@ -108,24 +104,38 @@ class Page2 extends StatelessWidget {
               child: Row(
                 children: [
                   // 中部第一个区域
-                  Expanded(
-                    flex: 1, // 分配等宽或根据需要调整
-                    child: Container(
-                      // color: Colors.lightGreen,
-                      child: Center(child: Text('缩略图')),
-                    ),
-                  ),
+                  // Expanded(
+                  //   flex: 1, // 分配等宽或根据需要调整
+                  //   child: Container(
+                  //     // color: Colors.lightGreen,
+                  //     child: Center(child: Text('')),
+                  //   ),
+                  // ),
                   // 中部第二个区域
                   Expanded(
                     flex: 1,
-                    child: ToggleableButton(), // 这就是你之前定义的按钮
+                    child: MyHomePage( title: 'open',),
+                    
                   ),
-                  // 中部第三个区域
+                  // 中部第三个区
                   Expanded(
                     flex: 1,
                     child: Container(
-                      color: Colors.orange,
-                      child: MyHomePage(title: 'Switch Demo Home Page'),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Page1()),
+                          );
+                        },
+                        child: Text(
+                          'FINISH',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -134,7 +144,6 @@ class Page2 extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }
@@ -206,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               // 'Is Switched On: ${_isSwitchedOn ? 'Yes' : 'No'}',
-              'AR',
+              '',
             ),
             Switch(
               value: _isSwitchedOn,

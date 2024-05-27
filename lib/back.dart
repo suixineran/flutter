@@ -7,7 +7,7 @@ import 'page3.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Page2(),
+    home: Page1(),
 
     // 注册路由的方式没生效？？？
     // initialRoute: '/page1',  

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-// import 'page2.dart';
+import 'page2.dart';
 import 'page3.dart';
 
 class Page1 extends StatelessWidget {
@@ -213,7 +213,10 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     ),
                     Text(
                       'Ask for help',
-                      style: TextStyle(color: _colors[_colorIndex], decoration: TextDecoration.underline,),
+                      style: TextStyle(
+                        color: _colors[_colorIndex],
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ],
                 ),
@@ -247,57 +250,17 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                 ),
               ],
             ),
-
-            // if (_isLoading) CircularProgressIndicator(),
-            // Offstage(
-            //   offstage: _isOffstage,
-            //   child: Text(
-            //     '这是一段可以被显示或隐藏的文字。',
-            //     style: TextStyle(fontSize: 20),
-            //   ),
-            // ),
-
-            // Text(
-            //   'Camera connecting ... Ask for help',
-            //   style: TextStyle(color: Colors.black),
-            // ),
-            // Text(
-            //   'Parameter check',
-            //   style: TextStyle(color: Colors.black),
-            // ),
-            // Text(
-            //   'Target confirm',
-            //   style: TextStyle(color: Colors.black),
-            // ),
-
-            // RichText(
-            //   text: TextSpan(
-            //     children: <TextSpan>[
-            //       TextSpan(
-            //         text: 'Camera connecting ... Ask for help',
-            //         // style: TextStyle(color: Colors.blue, fontSize: 20),
-            //         style: _textStyle,
-            //       ),
-            //       TextSpan(
-            //         text: 'Parameter check',
-            //         style: _textStyle,
-            //       ),
-            //       TextSpan(
-            //         text: 'Target confirm',
-            //         style: _textStyle,
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
 
-        // 按钮
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ElevatedButton(
-              onPressed: _changeColor,
+              // onPressed: _changeColor,
+              onPressed: () {
+                _changeColor();
+              },
               child: Text('改变状态'),
             ),
 
@@ -306,10 +269,24 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
               onPressed: toggleIcon,
               child: Text('切换图标'),
             ),
-            Expanded(
+            Expanded(   // 开始按钮
               flex: 1,
               child: GestureDetector(
-                onTap: () => toggleState(), // 如果可点击，则切换状态
+                // onTap: () => toggleState(), // 如果可点击，则切换状态
+                onTap: () async {  
+                  print('11');
+              // 等待2秒  
+            
+              await Future.delayed(Duration(seconds: 2)); 
+                  toggleState();
+                  print('22');
+                  await Future.delayed(Duration(seconds: 2)); 
+                  print('33');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Page2()),
+                  );
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -335,11 +312,6 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
               iconSize: 20, // 设置图标大小为30
               color: Colors.grey, // 设置图标颜色为红色
             ),
-
-            //     ElevatedButton(
-            //   onPressed:_changeColor,
-            //   child: Text('改变颜色'),
-            // ),
           ],
         ),
       ],
