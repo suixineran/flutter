@@ -269,18 +269,18 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
               onPressed: toggleIcon,
               child: Text('切换图标'),
             ),
-            Expanded(   // 开始按钮
+            Expanded(
+              // 开始按钮
               flex: 1,
               child: GestureDetector(
                 // onTap: () => toggleState(), // 如果可点击，则切换状态
-                onTap: () async {  
+                onTap: () async {
                   print('11');
-              // 等待2秒  
-            
-              await Future.delayed(Duration(seconds: 2)); 
+                  // 等待2秒
+                  await Future.delayed(Duration(seconds: 2));
                   toggleState();
                   print('22');
-                  await Future.delayed(Duration(seconds: 2)); 
+                  await Future.delayed(Duration(seconds: 2));
                   print('33');
                   Navigator.push(
                     context,
