@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
-
+import 'video.dart';
 
 
 void main() {
   runApp(MaterialApp(
-    home: Page2(),
+    home: VideoPlayerScreen(),
 
     // 注册路由的方式没生效？？？
     // initialRoute: '/page1',  
