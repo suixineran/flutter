@@ -3,11 +3,12 @@ import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
 import 'video.dart';
+import 'img.dart';
 
 
 void main() {
   runApp(MaterialApp(
-    home: VideoPlayerScreen(),
+    home: DynamicPositionExample(),
 
     // 注册路由的方式没生效？？？
     // initialRoute: '/page1',  
