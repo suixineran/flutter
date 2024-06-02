@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
+import 'img-small.dart';
 
 class DynamicPositionExample extends StatefulWidget {
   @override
@@ -28,17 +28,43 @@ class _DynamicPositionExampleState extends State<DynamicPositionExample> {
       int h = imageHeight.toInt();
       int randomNumber = random.nextInt(w); // 生成一个 0 到 99 之间的随机整数
       int randomNumber2 = random.nextInt(h); // 生成一个 0 到 99 之间的随机整数
-      left = randomNumber.toDouble();
-      top = randomNumber2.toDouble();
+      // left = randomNumber.toDouble();
+      // top = randomNumber2.toDouble();
+
+      left += 5;
+      top += 0;
     });
   }
 
-  // _DynamicPositionExampleState({required this.x, required this.y});
+  void updatePosition0() {
+    setState(() {
+      left += 5;
+      top += 0;
+    });
+  }
+
+  void updatePosition1() {
+    setState(() {
+      left += -5;
+      top += -0;
+    });
+  }
+
+  void updatePosition2() {
+    setState(() {
+      left += 0;
+      top += 5;
+    });
+  }
+
+  void updatePosition3() {
+    setState(() {
+      left += 0;
+      top += -5;
+    });
+  }
 
   @override
-
-  // Widget build(BuildContext context) {
-
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -57,26 +83,45 @@ class _DynamicPositionExampleState extends State<DynamicPositionExample> {
                     // height: 300,
                     key: _imageKey), // 大图
                 Positioned(
-                  // left: x, // 动态设置左边距离
-                  // top: y, // 动态设置顶部距离
                   left: left, // 动态设置左边距离
                   top: top, // 动态设置顶部距离
-                  child: Image.asset(
-                    'assets/0601.jpeg',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ), // 小图
+                  child: CropImageScreen(x: left, y: top),
+                  // child: Image.asset(
+                  //   'assets/0601.jpeg',
+                  //   width: 300,
+                  //   height: 300,
+                  //   fit: BoxFit.cover,
+                  // ), // 小图
                 ),
+
+// CropImageScreen(x: left, y: top),
               ],
             ),
             Text('显示的坐标位置 $left, $top'), // 第三个子部件，显示一段文字
             RawMaterialButton(
               onPressed: () {
                 // print('onPressed',x, y);
-                updatePosition();
+                updatePosition0();
               },
-              child: Text('Update Position'),
+              child: Text('前进'),
+            ),
+            RawMaterialButton(
+              onPressed: () {
+                updatePosition1();
+              },
+              child: Text('退'),
+            ),
+            RawMaterialButton(
+              onPressed: () {
+                updatePosition2();
+              },
+              child: Text('纵加'),
+            ),
+            RawMaterialButton(
+              onPressed: () {
+                updatePosition3();
+              },
+              child: Text('纵减'),
             ),
           ],
         ),
