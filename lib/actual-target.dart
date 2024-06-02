@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'page1.dart';
-import 'page2.dart';
-import 'page3.dart';
-import 'sorce.dart';
+import 'connect.dart';
+import 'actual-target.dart';
+import 'comp/sorce.dart';
 
 class Page2 extends StatelessWidget {
   @override
@@ -31,7 +30,7 @@ class Page2 extends StatelessWidget {
                         // 这里处理返回上一页的逻辑，例如使用 Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Page1()),
+                          MaterialPageRoute(builder: (context) => ConnectWidge()),
                         );
                       },
                       tooltip: '返回', // 可选的工具提示
@@ -125,7 +124,7 @@ class Page2 extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Page1()),
+                            MaterialPageRoute(builder: (context) => ConnectWidge()),
                           );
                         },
                         child: Text(
