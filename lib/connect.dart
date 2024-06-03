@@ -354,6 +354,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                       print('点击了刷新按钮');
                       setState(() {
                         cameraStatue = 0;
+                        percent = 0;
                       });
                     },
                     iconSize: 30, // 设置图标大小为30

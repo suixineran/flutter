@@ -33,7 +33,7 @@ dependencies:
   flutter_floating: ^1.0.8
   flutter_spinkit: ^5.2.1
   video_player: ^2.8.6 # 替换为实际的最新版本号
-  material_design_icons_flutter: ^4.0.5755
+  material_design_icons_flutter: ^7.0.7296
 
 
 
