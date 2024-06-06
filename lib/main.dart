@@ -8,7 +8,8 @@ import 'comp/img.dart';
 void main() {
   runApp(MaterialApp(
     // home: DynamicPositionExample(),
-    home: ConnectWidge(),
+    // home: ConnectWidge(),
+    home:Page2(),
 
     // 注册路由的方式没生效？？？
     // initialRoute: '/page1',  

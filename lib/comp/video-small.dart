@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+class VideoPlayerScreenS extends StatefulWidget {
+  const VideoPlayerScreenS({super.key});
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<VideoPlayerScreenS> createState() => _VideoPlayerScreenStateS();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
@@ -28,7 +28,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
 // 模拟网络链接
   void start1() async {
-    await Future.delayed(Duration(seconds: 15)); // 等待
+    await Future.delayed(Duration(seconds: 1)); // 等待
     setState(() {
       // _controller.play();
     });
@@ -50,7 +50,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             if (snapshot.connectionState == ConnectionState.done) {
               print(_controller.value.aspectRatio);
               return Container(
-                height: 354,
+                height: 100,
                 child: Center(
                     child: AspectRatio(
                   aspectRatio: 16 / 9, // 设置宽高比，例如16:9
@@ -58,10 +58,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 )),
               );
             } else {
-              return Image.asset(
-                '../images/0601.jpeg', // 替换为你的图片路径
-                height: 354,
-              );
+              // return Image.asset(
+              //   '../images/0601.jpeg', // 替换为你的图片路径
+              //   height: 100,
+              // );
+              return Container();
             }
           },
         ),
