@@ -4,7 +4,7 @@ import 'dart:math' as math;
 class CircleWidget extends StatelessWidget {
   final int score;
   final int numberTime;
-  CircleWidget(this.score, this.numberTime);
+  const CircleWidget(this.score, this.numberTime, {super.key});
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
@@ -12,7 +12,7 @@ class CircleWidget extends StatelessWidget {
         score,
         numberTime,
       ), // 使用自定义的CirclePainter
-      size: Size(80, 80), // 设置绘制区域的大小
+      size: const Size(80, 80), // 设置绘制区域的大小
     );
   }
 }

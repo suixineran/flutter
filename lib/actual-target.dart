@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'connect.dart';
-import 'actual-target.dart';
 import 'dart:math'; // 导入dart:math库
 import 'comp/circle.dart';
-import 'comp/video.dart';
 import 'comp/video-small.dart';
 
 class Page2 extends StatelessWidget {
+  const Page2({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         appBar: null,
         body: MyHomePage(title: 'xxx'),
@@ -19,7 +19,7 @@ class Page2 extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isSwitchedOn = false;
 
   bool isEnabled = false; // 初始状态为可点击
-  Offset _offset = Offset(300.0, 0.0);
+  Offset _offset = const Offset(300.0, 0.0);
 
   late int num;
   late List<int> years;
@@ -49,6 +49,17 @@ class _MyHomePageState extends State<MyHomePage> {
       return Colors.black; // 默认情况下或其他情况下返回黑色
     }
   }
+  String getPathForNumber(int number) {
+    if (number >= 0 && number <= 4) {
+      return 'images/score-r.png'; // 红色
+    } else if (number >= 5 && number <= 7) {
+      return  'images/score-y.png'; // 黄色
+    } else if (number >= 8 && number <= 10) {
+      return  'images/score-g.png'; // 绿色
+    } else {
+      return  'images/score-y.png'; // 默认情况下或其他情况下返回黑色
+    }
+  }
 
   void toggleState() {
     setState(() {
@@ -65,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _offset = Offset(5.0, 320.0);
+    _offset = const Offset(5.0, 320.0);
     num = 30;
     years = List.generate(num, (index) => index);
     valueList =
@@ -82,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // 顶部区域
             //  顶部
-            Container(
+            const SizedBox(
               height: 60.0,
               child: Center(
                 child: Text(
@@ -104,13 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   color: const Color.fromARGB(255, 13, 13, 13),
                   height: 400, // 可以根据需要调整高度
-                  child: Image(
+                  child: const Image(
                     image: AssetImage('../images/connent-3.png'),
                     // width: 1000,
                     // height: 1000,
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   top: 20,
                   right: 20,
                   child: CircleWidget(20, 10),
@@ -119,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             // 成绩区
-            Container(
+            SizedBox(
               // color: Color.fromARGB(255, 220, 22, 22),
               height: 100, // 可以根据需要调整高度
               child: ListView.builder(
@@ -129,46 +140,42 @@ class _MyHomePageState extends State<MyHomePage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        print('xxxxxxxx');
+                        print('xxxxxxxx$index',);
                         selectedYear = years[index];
                       });
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: 100, // 刻度的宽度
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Stack(
                             children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage('../images/score-g.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
                               Center(
-                                child: Text(
-                                  valueList[index].toString(),
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: getColorForNumber(
-                                        valueList[index]), // 根据数字获取颜色
-                                    //       fontSize: 20),
-                                    // 可以根据需要设置其他样式属性
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(getPathForNumber(valueList[index])),
+                                      // fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                     valueList[index].toString(),
+                                      style: TextStyle(
+                                        color: getColorForNumber(
+                                        valueList[index]),
+                                        fontSize: 20,
+                                        // fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          // Text(
-                          //   valueList[index].toString(),
-                          //   style: TextStyle(
-                          //       color: getColorForNumber(
-                          //           valueList[index]), // 根据数字获取颜色
-                          //       fontSize: 20),
-                          // ),
                           Container(
                             height: 2, // 刻度线的高度
                             color: Colors.grey, // 刻度线的颜色
@@ -178,11 +185,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 5,
                             color: Colors.grey, // 刻度线的颜色
                           ),
-                          SizedBox(height: 5), // 刻度线和年份的间距
+                          const SizedBox(height: 5), // 刻度线和年份的间距
 
                           Text(
                             years[index].toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               color: Colors.white, // 刻度线的颜色
                             ),
@@ -204,14 +211,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Stack(
                   children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('../images/score-g.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         // valueList[index].toString(),
                         'test',
@@ -241,7 +248,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Center(
                         child: Text(
                           isEnabled ? 'pause' : 'start',
-                          style: TextStyle(color: Colors.white), // 文字颜色始终为白色
+                          style:
+                              const TextStyle(color: Colors.white), // 文字颜色始终为白色
                         ),
                       ),
                     )),
@@ -252,10 +260,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ConnectWidge()),
+                        MaterialPageRoute(
+                            builder: (context) => const ConnectWidge()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'FINISH',
                       style: TextStyle(
                         color: Colors.red,
@@ -276,19 +285,11 @@ class _MyHomePageState extends State<MyHomePage> {
         top: _offset.dy,
         child: Draggable(
           // 使用 Draggable Widget包裹视频播放器
-          child: Container(
-            // width: 200.0,
-            // height: 150.0,
-            color: Color.fromARGB(255, 5, 5, 5),
-            child: Center(
-              child: VideoPlayerScreenS(),
-            ),
-          ),
           feedback: Container(
             // width: 200.0,
             // height: 100.0,
             // color: Color.fromARGB(255, 33, 119, 41),
-            child: Center(
+            child: const Center(
               child: VideoPlayerScreenS(),
             ),
           ),
@@ -300,6 +301,15 @@ class _MyHomePageState extends State<MyHomePage> {
               _offset = offset;
             });
           },
+          // 使用 Draggable Widget包裹视频播放器
+          child: Container(
+            // width: 200.0,
+            // height: 150.0,
+            color: const Color.fromARGB(255, 5, 5, 5),
+            child: const Center(
+              child: VideoPlayerScreenS(),
+            ),
+          ),
         ),
       ),
     ]);

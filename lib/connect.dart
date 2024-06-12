@@ -7,9 +7,11 @@ import 'actual-target.dart';
 import 'comp/video.dart';
 
 class ConnectWidge extends StatelessWidget {
+  const ConnectWidge({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         appBar: null,
         body: MyCustomLayout(),
@@ -19,6 +21,8 @@ class ConnectWidge extends StatelessWidget {
 }
 
 class MyCustomLayout extends StatefulWidget {
+  const MyCustomLayout({super.key});
+
   @override
   _MyCustomLayoutState createState() => _MyCustomLayoutState();
 }
@@ -45,13 +49,13 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
   @override
   void dispose() {
     // 在组件被销毁时取消定时器，防止内存泄漏
-    _timer?.cancel();
+    _timer.cancel();
     super.dispose();
   }
 
   void _startTimer() {
     // 创建一个每秒触发一次的定时器
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {
         cameraStatue++;
         percent += 0.09;
@@ -67,7 +71,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           //  顶部
-          Container(
+          const SizedBox(
             height: 60.0,
             child: Center(
               child: Text(
@@ -83,16 +87,16 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
           ),
 
           // 视频部分
-          VideoPlayerScreen(),
+          const VideoPlayerScreen(),
 
           //  进度条
           Container(
-            margin: EdgeInsets.fromLTRB(
+            margin: const EdgeInsets.fromLTRB(
                 10.0, 10.0, 10.0, 10.0), // 设置左、上、右、下边距分别为20、30、40、50像素
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0), // 设置圆角半径为10.0
               child: LinearProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
+                valueColor: const AlwaysStoppedAnimation<Color>(
                   Color.fromRGBO(49, 213, 45, 1),
                 ), // 设置进度条颜色为红色
                 backgroundColor: Colors.grey, // 设置进度条背景颜色为灰色
@@ -103,7 +107,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
 
           // 连接状态的校验
           Container(
-            margin: EdgeInsets.fromLTRB(10.0, 1.0, 1.0, 1.0),
+            margin: const EdgeInsets.fromLTRB(10.0, 1.0, 1.0, 1.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +120,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                       child: Container(
                         width: 8, // 设置宽度为10像素
                         height: 8, // 设置高度为10像素
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.grey, // 设置背景颜色为红色
                           shape: BoxShape.circle, // 设置形状为圆形
                         ),
@@ -124,40 +128,40 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     ),
                     Visibility(
                         visible: cameraStatue == 1,
-                        child: SpinKitFadingCircle(
+                        child: const SpinKitFadingCircle(
                           color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
                           size: 20.0, // 可选，设置大小
                         )),
                     Visibility(
                         visible: cameraStatue == 2,
-                        child: Icon(
+                        child: const Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
                           size: 18.0, // 设置图标大小为30像素
                         )),
                     Visibility(
                       visible: cameraStatue > 2,
-                      child: Icon(
+                      child: const Icon(
                         Icons.done,
                         color: Colors.green,
                         size: 26.0,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
+                      padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
                         'Camera connecting ... ',
                         style: TextStyle(
                           color: cameraStatue == 2
-                              ? Color.fromRGBO(255, 73, 73, 1)
-                              : Color.fromRGBO(255, 255, 255, 1),
+                              ? const Color.fromRGBO(255, 73, 73, 1)
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 15,
                         ),
                       ),
                     ),
                     Visibility(
                       visible: cameraStatue == 2,
-                      child: Text(
+                      child: const Text(
                         'Ask for help',
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
@@ -178,7 +182,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                       child: Container(
                         width: 8, // 设置宽度为10像素
                         height: 8, // 设置高度为10像素
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.grey, // 设置背景颜色为红色
                           shape: BoxShape.circle, // 设置形状为圆形
                         ),
@@ -186,40 +190,40 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     ),
                     Visibility(
                         visible: cameraStatue == 5,
-                        child: SpinKitFadingCircle(
+                        child: const SpinKitFadingCircle(
                           color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
                           size: 20.0, // 可选，设置大小
                         )),
                     Visibility(
                         visible: cameraStatue == 6,
-                        child: Icon(
+                        child: const Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
                           size: 18.0, // 设置图标大小为30像素
                         )),
                     Visibility(
                       visible: cameraStatue > 6,
-                      child: Icon(
+                      child: const Icon(
                         Icons.done,
                         color: Colors.green,
                         size: 26.0,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
+                      padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
                         'Parameter checking ',
                         style: TextStyle(
                           color: cameraStatue == 6
-                              ? Color.fromRGBO(255, 73, 73, 1)
-                              : Color.fromRGBO(255, 255, 255, 1),
+                              ? const Color.fromRGBO(255, 73, 73, 1)
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 15,
                         ),
                       ),
                     ),
                     Visibility(
                       visible: cameraStatue == 6,
-                      child: Text(
+                      child: const Text(
                         'Ask for help',
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
@@ -241,7 +245,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                       child: Container(
                         width: 8, // 设置宽度为10像素
                         height: 8, // 设置高度为10像素
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.grey, // 设置背景颜色为红色
                           shape: BoxShape.circle, // 设置形状为圆形
                         ),
@@ -249,40 +253,40 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     ),
                     Visibility(
                         visible: cameraStatue == 9,
-                        child: SpinKitFadingCircle(
+                        child: const SpinKitFadingCircle(
                           color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
                           size: 20.0, // 可选，设置大小
                         )),
                     Visibility(
                         visible: cameraStatue == 10,
-                        child: Icon(
+                        child: const Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
                           size: 18.0, // 设置图标大小为30像素
                         )),
                     Visibility(
                       visible: cameraStatue > 10,
-                      child: Icon(
+                      child: const Icon(
                         Icons.done,
                         color: Colors.green,
                         size: 26.0,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
+                      padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
                         'Target confirm',
                         style: TextStyle(
                           color: cameraStatue == 10
-                              ? Color.fromRGBO(255, 73, 73, 1)
-                              : Color.fromRGBO(255, 255, 255, 1),
+                              ? const Color.fromRGBO(255, 73, 73, 1)
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 15,
                         ),
                       ),
                     ),
                     Visibility(
                       visible: cameraStatue == 10,
-                      child: Text(
+                      child: const Text(
                         'Ask for help',
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
@@ -300,11 +304,11 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
           ),
 
           Container(
-            margin: EdgeInsets.fromLTRB(10.0, 150.0, 10.0, 10.0),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.fromLTRB(10.0, 150.0, 10.0, 10.0),
+            decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(
-                    color: const Color.fromARGB(255, 196, 183, 183),
+                    color: Color.fromARGB(255, 196, 183, 183),
                     width: 0.2),
               ),
             ),
@@ -320,7 +324,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     onTap: () async {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Page2()),
+                        MaterialPageRoute(builder: (context) => const Page2()),
                       );
                     },
                     child: Container(
@@ -329,10 +333,10 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: cameraStatue > 12
-                            ? Color.fromRGBO(49, 213, 45, 1)
+                            ? const Color.fromRGBO(49, 213, 45, 1)
                             : Colors.grey, // 根据状态设置颜色
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'START',
                           style: TextStyle(
@@ -345,10 +349,10 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
+                  padding: const EdgeInsets.fromLTRB(
                       10.0, 10.0, 1.0, 10.0), // 设置所有方向的边距为10像素
                   child: IconButton(
-                    icon: Icon(Icons.refresh),
+                    icon: const Icon(Icons.refresh),
                     // data: IconThemeData(size: 20),
                     onPressed: () {
                       print('点击了刷新按钮');

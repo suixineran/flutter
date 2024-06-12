@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,7 +7,7 @@ class CropImageScreen extends StatefulWidget {
   final double x; // 选择的坐标
   final double y; // 选择的坐标
 
-  const CropImageScreen({required this.x, required this.y});
+  const CropImageScreen({super.key, required this.x, required this.y});
 
   @override
   _CropImageScreenState createState() => _CropImageScreenState();
@@ -38,7 +37,7 @@ class _CropImageScreenState extends State<CropImageScreen> {
             ? CustomPaint(
                 painter: CropPainter(_image!, widget.x, widget.y, w),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     // border: Border.all(
                     //   color: Colors.red,
                     //   width: 2.0,
@@ -50,7 +49,7 @@ class _CropImageScreenState extends State<CropImageScreen> {
                   height: w,
                 ),
               )
-            : CircularProgressIndicator(),
+            : const CircularProgressIndicator(),
       );
   }
 }

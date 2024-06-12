@@ -28,7 +28,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
 
 // 模拟网络链接
   void start1() async {
-    await Future.delayed(Duration(seconds: 1)); // 等待
+    await Future.delayed(const Duration(seconds: 1)); // 等待
     setState(() {
       // _controller.play();
     });
@@ -49,7 +49,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               print(_controller.value.aspectRatio);
-              return Container(
+              return SizedBox(
                 height: 100,
                 child: Center(
                     child: AspectRatio(

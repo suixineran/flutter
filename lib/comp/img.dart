@@ -3,12 +3,15 @@ import 'dart:math';
 import 'img-small.dart';
 
 class DynamicPositionExample extends StatefulWidget {
+  const DynamicPositionExample({super.key});
+
+  
   @override
   _DynamicPositionExampleState createState() => _DynamicPositionExampleState();
 }
 
 class _DynamicPositionExampleState extends State<DynamicPositionExample> {
-  GlobalKey _imageKey = GlobalKey();
+  final GlobalKey _imageKey = GlobalKey();
   double left = 0; // 初始左边距离为
   double top = 0; // 初始顶部距离为
 
@@ -103,25 +106,25 @@ class _DynamicPositionExampleState extends State<DynamicPositionExample> {
                 // print('onPressed',x, y);
                 updatePosition0();
               },
-              child: Text('前进'),
+              child: const Text('前进'),
             ),
             RawMaterialButton(
               onPressed: () {
                 updatePosition1();
               },
-              child: Text('退'),
+              child: const Text('退'),
             ),
             RawMaterialButton(
               onPressed: () {
                 updatePosition2();
               },
-              child: Text('纵加'),
+              child: const Text('纵加'),
             ),
             RawMaterialButton(
               onPressed: () {
                 updatePosition3();
               },
-              child: Text('纵减'),
+              child: const Text('纵减'),
             ),
           ],
         ),

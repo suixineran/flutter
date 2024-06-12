@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: DraggableVideoPlayer(),
     );
   }
 }
 
 class DraggableVideoPlayer extends StatefulWidget {
+  const DraggableVideoPlayer({super.key});
+
   @override
   _DraggableVideoPlayerState createState() => _DraggableVideoPlayerState();
 }
 
 class _DraggableVideoPlayerState extends State<DraggableVideoPlayer> {
-  Offset _offset = Offset(0.0, 0.0);
+  Offset _offset = const Offset(0.0, 0.0);
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +33,11 @@ class _DraggableVideoPlayerState extends State<DraggableVideoPlayer> {
           left: _offset.dx,
           top: _offset.dy,
           child: Draggable(  // 使用 Draggable Widget包裹视频播放器
-            child: Container(
-              width: 200.0,
-              height: 150.0,
-              color: Colors.black,
-              child: Center(
-                child: Text("Video Player"),
-              ),
-            ),
             feedback: Container(
               width: 200.0,
               height: 150.0,
               color: Colors.black,
-              child: Center(
+              child: const Center(
                 child: Text("Video Player"),
               ),
             ),
@@ -49,9 +45,20 @@ class _DraggableVideoPlayerState extends State<DraggableVideoPlayer> {
               setState(() {
                 _offset = offset;
               });
-            },
+            },  // 使用 Draggable Widget包裹视频播放器
+            child: Container(
+              width: 200.0,
+              height: 150.0,
+              color: Colors.black,
+              child: const Center(
+                child: Text("Video Player"),
+              ),
+            ),
           ),
         ),
+      
+      
+      
       ],
     );
   }

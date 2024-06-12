@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RestrictedDragAreaWidget extends StatefulWidget {
+  const RestrictedDragAreaWidget({super.key});
+
   @override
   _RestrictedDragAreaWidgetState createState() => _RestrictedDragAreaWidgetState();
 }
@@ -41,4 +43,4 @@ class _RestrictedDragAreaWidgetState extends State<RestrictedDragAreaWidget> {
   }
 }
 
-void main() => runApp(MaterialApp(home: Scaffold(body: RestrictedDragAreaWidget())));
+void main() => runApp(const MaterialApp(home: Scaffold(body: RestrictedDragAreaWidget())));

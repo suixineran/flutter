@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'connect.dart';
 import 'actual-target.dart';
-import 'comp/video.dart';
-import 'comp/img.dart';
 
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     // home: DynamicPositionExample(),
     // home: ConnectWidge(),
     home:Page2(),
@@ -19,3 +16,44 @@ void main() {
     // },  
   ));
 }
+
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Text with Background Image'),
+//         ),
+//         body: Center(
+//           child: Container(
+//             width: 100,
+//             height: 100,
+//             decoration: BoxDecoration(
+//               image: DecorationImage(
+//                 image: AssetImage('images/score-y.png'),
+//                 // fit: BoxFit.cover,
+//               ),
+//             ),
+//             child: Center(
+//               child: Text(
+//                 'Hello World!',
+//                 style: TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 24,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
