@@ -64,14 +64,14 @@ class _CustomSwitchState extends State<CustomSwitch>
 
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('../images/switch-on1.png'),
+                                image: AssetImage('images/switch-on1.png'),
                               ),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image(
-                                  image: AssetImage('../images/switch-on2.png'),
+                                  image: AssetImage('images/switch-on2.png'),
                                   // width: 50, // 子组件的宽度
                                   height: 13, // 子组件的高度
                                 ),
@@ -88,14 +88,14 @@ class _CustomSwitchState extends State<CustomSwitch>
                           height: 35,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('../images/switch-off1.png'),
+                              image: AssetImage('images/switch-off1.png'),
                             ),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image(
-                                image: AssetImage('../images/switch-off2.png'),
+                                image: AssetImage('images/switch-off2.png'),
                                 // width: 50, // 子组件的宽度
                                 height: 15, // 子组件的高度
                               ),
@@ -104,7 +104,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                                     EdgeInsets.all(3.0), // 在所有方向上添加16个逻辑像素的内边距
                               ),
                               Image(
-                                image: AssetImage('../images/switch-off2.png'),
+                                image: AssetImage('images/switch-off2.png'),
                                 // width: 5, // 子组件的宽度
                                 height: 15, // 子组件的高度
                               ),

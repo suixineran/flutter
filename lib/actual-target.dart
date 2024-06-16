@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _offset = const Offset(5.0, 420.0);
+    _offset = const Offset(5.0, 480.0);
     num = 30;
     years = List.generate(num, (index) => index);
     valueList =
@@ -116,9 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Container(
                   color: const Color.fromARGB(255, 13, 13, 13),
-                  height: 450, // 可以根据需要调整高度
+                  height: 530, // 可以根据需要调整高度
                   child: const Image(
-                    image: AssetImage('../images/connent-3.png'),
+                    image: AssetImage('images/target.png'),
                     // width: 1000,
                     // height: 1000,
                   ),
@@ -209,7 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
             Padding(
               padding: EdgeInsets.all(5.0), // 在所有方向上添加16个逻辑像素的内边距
-              child: Text('Hello, Flutter!'), // 子组件
             ),
             // 底部区域
 
@@ -220,8 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 // 中部第三个区
                 Container(
-                  // margin: EdgeInsets.symmetric(horizontal: 16.0),
-                  margin: EdgeInsets.fromLTRB(100.0, 0.0, 10.0, 0.0),
+                  margin: EdgeInsets.fromLTRB(60.0, 0.0, 30.0, 0.0),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(

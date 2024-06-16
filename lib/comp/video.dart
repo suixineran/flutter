@@ -59,7 +59,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               );
             } else {
               return Image.asset(
-                '../images/0601.jpeg', // 替换为你的图片路径
+                'images/0601.jpeg', // 替换为你的图片路径
                 height: 354,
               );
             }
