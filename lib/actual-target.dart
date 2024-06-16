@@ -3,6 +3,7 @@ import 'connect.dart';
 import 'dart:math'; // 导入dart:math库
 import 'comp/circle.dart';
 import 'comp/video-small.dart';
+import 'switch.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
@@ -49,15 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
       return Colors.black; // 默认情况下或其他情况下返回黑色
     }
   }
+
   String getPathForNumber(int number) {
     if (number >= 0 && number <= 4) {
       return 'images/score-r.png'; // 红色
     } else if (number >= 5 && number <= 7) {
-      return  'images/score-y.png'; // 黄色
+      return 'images/score-y.png'; // 黄色
     } else if (number >= 8 && number <= 10) {
-      return  'images/score-g.png'; // 绿色
+      return 'images/score-g.png'; // 绿色
     } else {
-      return  'images/score-y.png'; // 默认情况下或其他情况下返回黑色
+      return 'images/score-y.png'; // 默认情况下或其他情况下返回黑色
     }
   }
 
@@ -76,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _offset = const Offset(5.0, 320.0);
+    _offset = const Offset(5.0, 420.0);
     num = 30;
     years = List.generate(num, (index) => index);
     valueList =
@@ -114,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Container(
                   color: const Color.fromARGB(255, 13, 13, 13),
-                  height: 400, // 可以根据需要调整高度
+                  height: 450, // 可以根据需要调整高度
                   child: const Image(
                     image: AssetImage('../images/connent-3.png'),
                     // width: 1000,
@@ -140,7 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        print('xxxxxxxx$index',);
+                        print(
+                          'xxxxxxxx$index',
+                        );
                         selectedYear = years[index];
                       });
                     },
@@ -153,21 +157,22 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: <Widget>[
                               Center(
                                 child: Container(
-                                  width: 40,
-                                  height: 40,
+                                  width: 35,
+                                  height: 35,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(getPathForNumber(valueList[index])),
+                                      image: AssetImage(
+                                          getPathForNumber(valueList[index])),
                                       // fit: BoxFit.cover,
                                     ),
                                   ),
                                   child: Center(
                                     child: Text(
-                                     valueList[index].toString(),
+                                      valueList[index].toString(),
                                       style: TextStyle(
-                                        color: getColorForNumber(
-                                        valueList[index]),
-                                        fontSize: 20,
+                                        color:
+                                            getColorForNumber(valueList[index]),
+                                        fontSize: 16,
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -202,60 +207,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
+            Padding(
+              padding: EdgeInsets.all(5.0), // 在所有方向上添加16个逻辑像素的内边距
+              child: Text('Hello, Flutter!'), // 子组件
+            ),
             // 底部区域
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // 中部第一个区域
-
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('../images/score-g.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const Center(
-                      child: Text(
-                        // valueList[index].toString(),
-                        'test',
-                        style: TextStyle(
-                          fontSize: 20,
-                          // color: getColorForNumber(
-                          //     valueList[index]), // 根据数字获取颜色
-                          //       fontSize: 20),
-                          // 可以根据需要设置其他样式属性
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                // 中部第二个区域
-                GestureDetector(
-                    onTap: () => toggleState(), // 如果可点击，则切换状态
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            isEnabled ? Colors.green : Colors.blue, // 根据状态设置颜色
-                      ),
-                      child: Center(
-                        child: Text(
-                          isEnabled ? 'pause' : 'start',
-                          style:
-                              const TextStyle(color: Colors.white), // 文字颜色始终为白色
-                        ),
-                      ),
-                    )),
+                CustomSwitch(),
 
                 // 中部第三个区
                 Container(
+                  // margin: EdgeInsets.symmetric(horizontal: 16.0),
+                  margin: EdgeInsets.fromLTRB(100.0, 0.0, 10.0, 0.0),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -268,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       'FINISH',
                       style: TextStyle(
                         color: Colors.red,
-                        fontSize: 20,
+                        fontSize: 12,
                       ),
                     ),
                   ),
