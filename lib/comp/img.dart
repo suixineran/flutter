@@ -1,3 +1,4 @@
+// 显示截图的功能
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'img-small.dart';
@@ -81,8 +82,8 @@ class _DynamicPositionExampleState extends State<DynamicPositionExample> {
           children: [
             Stack(
               children: <Widget>[
-                Image.asset('../assets/0.png',
-                    // width: 300,
+                Image.asset('../images/target.png',
+                    width: 300,
                     // height: 300,
                     key: _imageKey), // 大图
                 Positioned(

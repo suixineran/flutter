@@ -4,6 +4,8 @@ import 'dart:math'; // 导入dart:math库
 import 'comp/circle.dart';
 import 'comp/video-small.dart';
 import 'switch.dart';
+import 'comp/img-small.dart';
+import 'comp/target-circl.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
@@ -17,6 +19,34 @@ class Page2 extends StatelessWidget {
       ),
     );
   }
+}
+
+class DataPoint {
+  final int index;
+  final String id;
+  final double x;
+  final double y;
+
+  DataPoint(this.index, this.id, this.x, this.y);
+
+  // 你可以根据需要添加其他方法或属性
+}
+
+List<DataPoint> generateRandomDataPoints(
+    int count, double minX, double maxX, double minY, double maxY) {
+  final random = Random();
+  final dataPoints = <DataPoint>[];
+
+  for (int i = 0; i < count; i++) {
+    // 假设ID是基于索引的简单字符串，但你可以根据需要生成更复杂的ID
+    String id = 'ID_$i';
+    double randomX = minX + random.nextDouble() * (maxX - minX);
+    double randomY = minY + random.nextDouble() * (maxY - minY);
+
+    dataPoints.add(DataPoint(i, id, randomX, randomY));
+  }
+
+  return dataPoints;
 }
 
 class MyHomePage extends StatefulWidget {
@@ -34,9 +64,42 @@ class _MyHomePageState extends State<MyHomePage> {
   Offset _offset = const Offset(300.0, 0.0);
 
   late int num;
-  late List<int> years;
-  late List<int> valueList;
-  late int selectedYear;
+  late List<int> years; //坐标轴
+  late List<int> valueList; // 坐标轴的数据
+  late int selectedTarget; // 选中的数据是多少
+  int selectedIndex = 0; //选中的索引
+
+  late DataPoint targetPoint; // 选中的数据是多少
+  late List<DataPoint> points; // 整体的数据
+
+  double left = 0; // 选中初始左边距离为
+  double top = 0; // 选中初始顶部距离为
+
+  bool isSwitchedOn = true; // 开关的状态
+  double _scale = 1.0;
+
+  //  接受子组件的传值
+  void handleSwitchChanged(bool newValue) {
+    setState(() {
+      isSwitchedOn = newValue;
+      // 在这里处理开关状态的变化，例如更新 UI 或发送数据
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTarget = -1;
+    _offset = const Offset(5.0, 480.0);
+    num = 30;
+    years = List.generate(num, (index) => index);
+
+    valueList =
+        List.generate(num, (index) => Random().nextInt(10) + 1); // 生成1到10的随机数字
+
+    // 假设我们想要生成10个数据点，X和Y坐标都在0到100的范围内
+    points = generateRandomDataPoints(num, 100.0, 300.0, 200, 400.0);
+  }
 
   // 根据数字返回颜色
   Color getColorForNumber(int number) {
@@ -51,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+// 成绩的背景图
   String getPathForNumber(int number) {
     if (number >= 0 && number <= 4) {
       return 'images/score-r.png'; // 红色
@@ -74,16 +138,14 @@ class _MyHomePageState extends State<MyHomePage> {
       _isSwitchedOn = value;
     });
   }
+  //  void _handleTap() {
+  //   setState(() {
+  //     // 假设你想要在0.1秒内放大到1.2倍，然后再缩小回1倍
+  //     _scale = _scale == 1.0 ? 1.2 : 1.0;
 
-  @override
-  void initState() {
-    super.initState();
-    _offset = const Offset(5.0, 480.0);
-    num = 30;
-    years = List.generate(num, (index) => index);
-    valueList =
-        List.generate(num, (index) => Random().nextInt(10) + 1); // 生成1到10的随机数字
-  }
+  //     // 如果你想要一个平滑的过渡，可以使用动画控制器
+  //     // 但这里为了简单起见，我们直接设置值
+  //   });
 
   @override
   Widget build(BuildContext context) {
@@ -142,44 +204,62 @@ class _MyHomePageState extends State<MyHomePage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        print(
-                          'xxxxxxxx$index',
-                        );
-                        selectedYear = years[index];
+                        // print(index);
+                        selectedTarget = years[index];
+                        selectedIndex = index;
+                        _scale = _scale == 1.0 ? 1.3 : 1.0;
+                        // print(selectedTarget);
+
+                        // 打印数据点以验证
+                        points.forEach((point) {
+                          if (point.index == index) {
+                            targetPoint = point;
+                            left = targetPoint.x;
+                            top = targetPoint.y;
+                          }
+                        });
                       });
                     },
                     child: SizedBox(
-                      width: 100, // 刻度的宽度
+                      width: 60, // 刻度的宽度
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Stack(
-                            children: <Widget>[
-                              Center(
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          getPathForNumber(valueList[index])),
-                                      // fit: BoxFit.cover,
+                          Transform.scale(
+                            scale:
+                                selectedIndex == index ? _scale : 1.0, // 应用缩放
+                            child: Stack(
+                              children: <Widget>[
+                                Center(
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            getPathForNumber(valueList[index])),
+                                        // fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      valueList[index].toString(),
-                                      style: TextStyle(
-                                        color:
-                                            getColorForNumber(valueList[index]),
-                                        fontSize: 16,
-                                        // fontWeight: FontWeight.bold,
+                                    child: Center(
+                                      child: Text(
+                                        valueList[index].toString(),
+                                        style: TextStyle(
+                                          color: getColorForNumber(
+                                              valueList[index]),
+                                          fontSize: 16,
+                                          // fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: EdgeInsets.only(top: 6.0), // 设置上边距
                           ),
                           Container(
                             height: 2, // 刻度线的高度
@@ -215,7 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomSwitch(),
+                CustomSwitch(onChanged: handleSwitchChanged),
 
                 // 中部第三个区
                 Container(
@@ -243,39 +323,53 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-      //  浮动的视频窗口
-      Positioned(
-        left: _offset.dx,
-        top: _offset.dy,
-        child: Draggable(
-          // 使用 Draggable Widget包裹视频播放器
-          feedback: Container(
-            // width: 200.0,
-            // height: 100.0,
-            // color: Color.fromARGB(255, 33, 119, 41),
-            child: const Center(
-              child: VideoPlayerScreenS(),
-            ),
-          ),
-          onDraggableCanceled: (velocity, offset) {
-            print(velocity);
-            print(offset);
-
-            setState(() {
-              _offset = offset;
-            });
-          },
-          // 使用 Draggable Widget包裹视频播放器
-          child: Container(
-            // width: 200.0,
-            // height: 150.0,
-            color: const Color.fromARGB(255, 5, 5, 5),
-            child: const Center(
-              child: VideoPlayerScreenS(),
-            ),
-          ),
+      // 选中的子弹效果
+      Visibility(
+        visible: selectedTarget != -1, // 一个布尔值，决定是否显示 widget
+        child: Positioned(
+          // left: left -100, // 动态设置左边距离
+          // top: top -200, // 动态设置顶部距离
+          left: left + 13, // 动态设置左边距离
+          top: top + 56, // 动态设置顶部距离
+          child: isSwitchedOn
+              ? targetCircleWidget() //红圈
+              : CropImageScreen(x: left, y: top), //放大的区域
         ),
       ),
+
+      //  浮动的视频窗口
+      // Positioned(
+      //   left: _offset.dx,
+      //   top: _offset.dy,
+      //   child: Draggable(
+      //     // 使用 Draggable Widget包裹视频播放器
+      //     feedback: Container(
+      //       // width: 200.0,
+      //       // height: 100.0,
+      //       // color: Color.fromARGB(255, 33, 119, 41),
+      //       child: const Center(
+      //         child: VideoPlayerScreenS(),
+      //       ),
+      //     ),
+      //     onDraggableCanceled: (velocity, offset) {
+      //       print(velocity);
+      //       print(offset);
+
+      //       setState(() {
+      //         _offset = offset;
+      //       });
+      //     },
+      //     // 使用 Draggable Widget包裹视频播放器
+      //     child: Container(
+      //       // width: 200.0,
+      //       // height: 150.0,
+      //       color: const Color.fromARGB(255, 5, 5, 5),
+      //       child: const Center(
+      //         child: VideoPlayerScreenS(),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     ]);
   }
 }

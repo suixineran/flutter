@@ -30,7 +30,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
   void start1() async {
     await Future.delayed(const Duration(seconds: 1)); // 等待
     setState(() {
-      _controller.play();
+      // _controller.play();
     });
   }
 

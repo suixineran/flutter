@@ -150,11 +150,19 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     Padding(
                       padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
-                        'Camera connecting ... ',
+                        cameraStatue == 2
+                            ? 'Camera connecting failed '
+                            : (cameraStatue == 1
+                                ? 'Camera connecting ...'
+                                : (cameraStatue == 0
+                                    ? 'Camera connect'
+                                    : 'Camera connected')),
                         style: TextStyle(
                           color: cameraStatue == 2
                               ? const Color.fromRGBO(255, 73, 73, 1)
-                              : const Color.fromRGBO(255, 255, 255, 1),
+                              : (cameraStatue == 0
+                                  ? Colors.grey
+                                  : const Color.fromRGBO(255, 255, 255, 1)),
                           fontSize: 15,
                         ),
                       ),
@@ -212,11 +220,19 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     Padding(
                       padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
-                        'Parameter checking ',
+                        cameraStatue == 6
+                            ? 'Parameter checking failed '
+                            : (cameraStatue == 5
+                                ? 'Parameter checking ...'
+                                : (cameraStatue < 5
+                                    ? 'Parameter check'
+                                    : 'Parameter checked')),
                         style: TextStyle(
                           color: cameraStatue == 6
                               ? const Color.fromRGBO(255, 73, 73, 1)
-                              : const Color.fromRGBO(255, 255, 255, 1),
+                              : (cameraStatue < 5
+                                  ? Colors.grey
+                                  : const Color.fromRGBO(255, 255, 255, 1)),
                           fontSize: 15,
                         ),
                       ),
@@ -246,7 +262,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                         width: 8, // 设置宽度为10像素
                         height: 8, // 设置高度为10像素
                         decoration: const BoxDecoration(
-                          color: Colors.grey, // 设置背景颜色为红色
+                          color: Colors.grey, //
                           shape: BoxShape.circle, // 设置形状为圆形
                         ),
                       ),
@@ -275,11 +291,19 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     Padding(
                       padding: const EdgeInsets.all(10.0), // 设置所有方向的边距为16像素
                       child: Text(
-                        'Target confirm',
+                        cameraStatue == 10
+                            ? 'Target confirm Failed '
+                            : (cameraStatue == 9
+                                ? 'Target confirming ...'
+                                : (cameraStatue < 9
+                                    ? 'Target confirm'
+                                    : 'Target confirmed')),
                         style: TextStyle(
                           color: cameraStatue == 10
                               ? const Color.fromRGBO(255, 73, 73, 1)
-                              : const Color.fromRGBO(255, 255, 255, 1),
+                              : (cameraStatue < 9
+                                  ? Colors.grey
+                                  : const Color.fromRGBO(255, 255, 255, 1)),
                           fontSize: 15,
                         ),
                       ),
@@ -308,66 +332,64 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(
-                    color: Color.fromARGB(255, 196, 183, 183),
-                    width: 0.2),
+                    color: Color.fromARGB(255, 196, 183, 183), width: 0.2),
               ),
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  // 开始按钮
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Page2()),
-                      );
-                    },
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: cameraStatue > 12
-                            ? const Color.fromRGBO(49, 213, 45, 1)
-                            : Colors.grey, // 根据状态设置颜色
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'START',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ), // 文字颜色始终为白色
+
+          Stack(children: [
+            GestureDetector(
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Page2()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: cameraStatue > 12
+                              ? const Color.fromRGBO(49, 213, 45, 1)
+                              : Colors.grey, // 根据状态设置颜色
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'START',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ), // 文字颜色始终为白色
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    )
+                  ],
+                )),
+            Positioned(
+              right: 10, // 距离屏幕左边的距离
+              bottom: 10, // 距离屏幕底部的距离
+              child: Container(
+                child: IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    print('点击了刷新按钮');
+                    setState(() {
+                      cameraStatue = 0;
+                      percent = 0;
+                    });
+                  },
+                  iconSize: 30, // 设置图标大小为30
+                  color: Colors.grey, // 设置图标颜色为红色
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      10.0, 10.0, 1.0, 10.0), // 设置所有方向的边距为10像素
-                  child: IconButton(
-                    icon: const Icon(Icons.refresh),
-                    // data: IconThemeData(size: 20),
-                    onPressed: () {
-                      print('点击了刷新按钮');
-                      setState(() {
-                        cameraStatue = 0;
-                        percent = 0;
-                      });
-                    },
-                    iconSize: 30, // 设置图标大小为30
-                    color: Colors.grey, // 设置图标颜色为红色
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
+          ]),
         ],
       ),
     );

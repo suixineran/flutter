@@ -15,7 +15,7 @@ class CropImageScreen extends StatefulWidget {
 
 class _CropImageScreenState extends State<CropImageScreen> {
   ui.Image? _image;
-  late double w = 100; // 小图片的大小 正方形
+  late double w = 40; // 小图片的大小 正方形
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _CropImageScreenState extends State<CropImageScreen> {
   }
 
   Future<void> loadImage() async {
-    ByteData data = await rootBundle.load('assets/0.png');
+    ByteData data = await rootBundle.load('images/target.png');
     Uint8List bytes = data.buffer.asUint8List();
     _image = await decodeImageFromList(bytes);
     setState(() {});
@@ -69,8 +69,8 @@ class CropPainter extends CustomPainter {
 
 
 
-    final Rect rect = Rect.fromLTWH(0, 0, w *2, w*2 ); // 要画多大的区域
-    final Rect src = Rect.fromLTWH(x, y, w , w ,); // 要画照片的哪一部分
+    final Rect rect = Rect.fromLTWH(0, 0, w *1, w*1 ); // 要画多大的区域
+    final Rect src = Rect.fromLTWH(x, y, w*2 , w*2 ,); // 要画照片的哪一部分
     canvas.drawImageRect(image, src, rect, Paint());
   }
 

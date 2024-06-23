@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 
 
 
-class CustomSwitch extends StatefulWidget {
-  const CustomSwitch({Key? key}) : super(key: key);
-
-  @override
-  _CustomSwitchState createState() => _CustomSwitchState();
-}
+class CustomSwitch extends StatefulWidget {  
+  final ValueChanged<bool>? onChanged; // 添加回调函数参数  
+  
+  const CustomSwitch({Key? key, this.onChanged}) : super(key: key);  
+  
+  @override  
+  _CustomSwitchState createState() => _CustomSwitchState();  
+}  
 
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isSwitchedOn = false;
+  bool _isSwitchedOn = true;
+  
 
   @override
   void initState() {
@@ -31,6 +34,8 @@ class _CustomSwitchState extends State<CustomSwitch>
         setState(() {
           _isSwitchedOn = !_isSwitchedOn;
           _controller.fling(velocity: _isSwitchedOn ? 1.0 : -1.0);
+           // 调用回调函数，并传递新的状态值  
+          widget.onChanged?.call(_isSwitchedOn);  
         });
       },
       child: AnimatedBuilder(
