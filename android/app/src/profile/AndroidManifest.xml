@@ -5,3 +5,9 @@
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
+<application
+android:label="Shot"
+    android:hardwareAccelerated="false">
+    <!-- other configurations -->
+</application>
+<uses-permission android:name="android.permission.INTERNET"/>

@@ -338,38 +338,38 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       //  浮动的视频窗口
-      // Positioned(
-      //   left: _offset.dx,
-      //   top: _offset.dy,
-      //   child: Draggable(
-      //     // 使用 Draggable Widget包裹视频播放器
-      //     feedback: Container(
-      //       // width: 200.0,
-      //       // height: 100.0,
-      //       // color: Color.fromARGB(255, 33, 119, 41),
-      //       child: const Center(
-      //         child: VideoPlayerScreenS(),
-      //       ),
-      //     ),
-      //     onDraggableCanceled: (velocity, offset) {
-      //       print(velocity);
-      //       print(offset);
+      Positioned(
+        left: _offset.dx,
+        top: _offset.dy,
+        child: Draggable(
+          // 使用 Draggable Widget包裹视频播放器
+          feedback: Container(
+            // width: 200.0,
+            // height: 100.0,
+            // color: Color.fromARGB(255, 33, 119, 41),
+            child: const Center(
+              child: VideoPlayerScreenS(),
+            ),
+          ),
+          onDraggableCanceled: (velocity, offset) {
+            print(velocity);
+            print(offset);
 
-      //       setState(() {
-      //         _offset = offset;
-      //       });
-      //     },
-      //     // 使用 Draggable Widget包裹视频播放器
-      //     child: Container(
-      //       // width: 200.0,
-      //       // height: 150.0,
-      //       color: const Color.fromARGB(255, 5, 5, 5),
-      //       child: const Center(
-      //         child: VideoPlayerScreenS(),
-      //       ),
-      //     ),
-      //   ),
-      // ),
+            setState(() {
+              _offset = offset;
+            });
+          },
+          // 使用 Draggable Widget包裹视频播放器
+          child: Container(
+            // width: 200.0,
+            // height: 150.0,
+            color: const Color.fromARGB(255, 5, 5, 5),
+            child: const Center(
+              child: VideoPlayerScreenS(),
+            ),
+          ),
+        ),
+      ),
     ]);
   }
 }

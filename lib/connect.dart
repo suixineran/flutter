@@ -350,8 +350,8 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                   children: [
                     Expanded(
                       child: Container(
-                        width: 60,
-                        height: 60,
+                        width: 55,
+                        height: 55,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: cameraStatue > 12
@@ -363,7 +363,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                             'START',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 15,
                             ), // 文字颜色始终为白色
                           ),
                         ),
