@@ -111,40 +111,61 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
+              
+              
               children: <Widget>[
+            
                 // 相机
                 Row(
                   children: [
+                    
                     Visibility(
                       visible: cameraStatue == 0,
                       child: Container(
-                        width: 8, // 设置宽度为10像素
-                        height: 8, // 设置高度为10像素
-                        decoration: const BoxDecoration(
-                          color: Colors.grey, // 设置背景颜色为红色
-                          shape: BoxShape.circle, // 设置形状为圆形
+                        width: 20,
+                        height: 20,
+                        child: Icon(
+                          Icons.circle,
+                          color: Colors.grey,
+                          size: 12.0,
                         ),
                       ),
                     ),
                     Visibility(
-                        visible: cameraStatue == 1,
-                        child: const SpinKitFadingCircle(
-                          color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
-                          size: 20.0, // 可选，设置大小
-                        )),
+                      visible: cameraStatue == 1,
+                      child: Container(
+                        width: 20.0, // 设置Container的宽度
+                        height: 20.0, // 设置Container的高度
+                        child: SpinKitFadingCircle(
+                          color: Color.fromRGBO(49, 213, 45, 1),
+                          size: 20.0, // 设置SpinKitFadingCircle的大小
+                        ),
+                      ),
+                    ),
                     Visibility(
-                        visible: cameraStatue == 2,
-                        child: const Icon(
+                      visible: cameraStatue == 2,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
-                          size: 18.0, // 设置图标大小为30像素
-                        )),
+                          size: 20.0, // 设置图标大小为30像素
+                        ),
+                      ),
+                    ),
                     Visibility(
                       visible: cameraStatue > 2,
-                      child: const Icon(
-                        Icons.done,
-                        color: Colors.green,
-                        size: 26.0,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
+                          Icons.done,
+                          size: 22.0,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
                     Padding(
@@ -174,47 +195,66 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
                           decoration: TextDecoration.underline, // 设置文字带下划线
-                          decorationStyle:
-                              TextDecorationStyle.solid, // 设置下划线样式为实线
-                          fontWeight: FontWeight.bold, // 设置字体粗细为粗体
+                           decorationColor: Colors.white, // 设置下划线的颜色
+            decorationThickness: 2.0, // 设置下划线的厚度
+                        
                         ),
                       ),
                     ),
                   ],
                 ),
+
                 // 参数
                 Row(
                   children: [
                     Visibility(
                       visible: cameraStatue < 5,
+                      // visible: true,
                       child: Container(
-                        width: 8, // 设置宽度为10像素
-                        height: 8, // 设置高度为10像素
-                        decoration: const BoxDecoration(
-                          color: Colors.grey, // 设置背景颜色为红色
-                          shape: BoxShape.circle, // 设置形状为圆形
+                        width: 20,
+                        height: 20,
+                        child: Icon(
+                          Icons.circle,
+                          color: Colors.grey,
+                          size: 12.0,
                         ),
                       ),
                     ),
                     Visibility(
-                        visible: cameraStatue == 5,
-                        child: const SpinKitFadingCircle(
-                          color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
-                          size: 20.0, // 可选，设置大小
-                        )),
+                      visible: cameraStatue == 5,
+                      child: Container(
+                        width: 20.0, // 设置Container的宽度
+                        height: 20.0, // 设置Container的高度
+                        child: SpinKitFadingCircle(
+                          color: Color.fromRGBO(49, 213, 45, 1),
+                          size: 20.0, // 设置SpinKitFadingCircle的大小
+                        ),
+                      ),
+                    ),
                     Visibility(
-                        visible: cameraStatue == 6,
-                        child: const Icon(
+                      visible: cameraStatue == 6,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
-                          size: 18.0, // 设置图标大小为30像素
-                        )),
+                          size: 20.0, // 设置图标大小为30像素
+                        ),
+                      ),
+                    ),
                     Visibility(
                       visible: cameraStatue > 6,
-                      child: const Icon(
-                        Icons.done,
-                        color: Colors.green,
-                        size: 26.0,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
+                          Icons.done,
+                          size: 22.0,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
                     Padding(
@@ -244,9 +284,8 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
                           decoration: TextDecoration.underline, // 设置文字带下划线
-                          decorationStyle:
-                              TextDecorationStyle.solid, // 设置下划线样式为实线
-                          fontWeight: FontWeight.bold, // 设置字体粗细为粗体
+                          decorationColor: Colors.white, // 设置下划线的颜色
+            decorationThickness: 2.0, // 设置下划线的厚度
                         ),
                       ),
                     ),
@@ -259,33 +298,50 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                     Visibility(
                       visible: cameraStatue < 9,
                       child: Container(
-                        width: 8, // 设置宽度为10像素
-                        height: 8, // 设置高度为10像素
-                        decoration: const BoxDecoration(
-                          color: Colors.grey, //
-                          shape: BoxShape.circle, // 设置形状为圆形
+                        width: 20,
+                        height: 20,
+                        child: Icon(
+                          Icons.circle,
+                          color: Colors.grey,
+                          size: 12.0,
                         ),
                       ),
                     ),
                     Visibility(
-                        visible: cameraStatue == 9,
-                        child: const SpinKitFadingCircle(
-                          color: Color.fromRGBO(49, 213, 45, 1), // 可选，设置颜色
-                          size: 20.0, // 可选，设置大小
-                        )),
+                      visible: cameraStatue == 9,
+                      child: Container(
+                        width: 20.0, // 设置Container的宽度
+                        height: 20.0, // 设置Container的高度
+                        child: SpinKitFadingCircle(
+                          color: Color.fromRGBO(49, 213, 45, 1),
+                          size: 20.0, // 设置SpinKitFadingCircle的大小
+                        ),
+                      ),
+                    ),
                     Visibility(
-                        visible: cameraStatue == 10,
-                        child: const Icon(
+                      visible: cameraStatue == 10,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
                           Icons.warning,
                           color: Colors.red, // 设置图标颜色为红色
-                          size: 18.0, // 设置图标大小为30像素
-                        )),
+                          size: 20.0, // 设置图标大小为30像素
+                        ),
+                      ),
+                    ),
                     Visibility(
                       visible: cameraStatue > 10,
-                      child: const Icon(
-                        Icons.done,
-                        color: Colors.green,
-                        size: 26.0,
+                      child: Container(
+                        width: 20, // 设置宽度为10像素
+                        height: 20, // 设置高度为10像素
+
+                        child: Icon(
+                          Icons.done,
+                          size: 22.0,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
                     Padding(
@@ -315,9 +371,8 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
                           decoration: TextDecoration.underline, // 设置文字带下划线
-                          decorationStyle:
-                              TextDecorationStyle.solid, // 设置下划线样式为实线
-                          fontWeight: FontWeight.bold, // 设置字体粗细为粗体
+                          decorationColor: Colors.white, // 设置下划线的颜色
+            decorationThickness: 2.0, // 设置下划线的厚度
                         ),
                       ),
                     ),
@@ -328,7 +383,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
           ),
 
           Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 150.0, 10.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(10.0, 100.0, 10.0, 10.0),
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -340,10 +395,14 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
           Stack(children: [
             GestureDetector(
                 onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Page2()),
-                  );
+                  if (cameraStatue > 12) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Page2()),
+                    );
+                  } else {
+                    print('不能使用');
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
