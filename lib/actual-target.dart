@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<int> years; //坐标轴
   late List<int> valueList; // 坐标轴的数据
   late int selectedTarget; // 选中的数据是多少
-  int selectedIndex = 0; //选中的索引
+  int selectedIndex = 1000; //选中的索引
 
   late DataPoint targetPoint; // 选中的数据是多少
   late List<DataPoint> points; // 整体的数据
@@ -138,14 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _isSwitchedOn = value;
     });
   }
-  //  void _handleTap() {
-  //   setState(() {
-  //     // 假设你想要在0.1秒内放大到1.2倍，然后再缩小回1倍
-  //     _scale = _scale == 1.0 ? 1.2 : 1.0;
-
-  //     // 如果你想要一个平滑的过渡，可以使用动画控制器
-  //     // 但这里为了简单起见，我们直接设置值
-  //   });
 
   @override
   Widget build(BuildContext context) {
@@ -204,11 +196,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        // print(index);
+                        print(index);
                         selectedTarget = years[index];
                         selectedIndex = index;
-                        _scale = _scale == 1.0 ? 1.3 : 1.0;
-                        // print(selectedTarget);
+                        print(selectedTarget);
 
                         // 打印数据点以验证
                         points.forEach((point) {
@@ -226,8 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Transform.scale(
-                            scale:
-                                selectedIndex == index ? _scale : 1.0, // 应用缩放
+                            scale: selectedIndex == index ? 1.3 : 1.0, // 应用缩放
                             child: Stack(
                               children: <Widget>[
                                 Center(
@@ -290,16 +280,41 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(5.0), // 在所有方向上添加16个逻辑像素的内边距
             ),
-            // 底部区域
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomSwitch(onChanged: handleSwitchChanged),
-
-                // 中部第三个区
                 Container(
-                  margin: EdgeInsets.fromLTRB(60.0, 0.0, 30.0, 0.0),
+                  width: 1,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color.fromARGB(255, 245, 246, 245),
+                      width: 0.5, // 设置外边框的宽度
+                    ),
+                  ),
+                  child: const Text(
+                    '',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Stack(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomSwitch(onChanged: handleSwitchChanged),
+                ],
+              ),
+              Positioned(
+                right: 25, // 距离屏幕左边的距离
+                bottom: 10, //
+                child: Container(
+                  // margin: EdgeInsets.fromLTRB(60.0, 0.0, 30.0, 0.0),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -317,8 +332,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              )
+            ]),
           ],
         ),
       ),

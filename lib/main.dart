@@ -7,8 +7,8 @@ import 'connect.dart';
 void main() {
   runApp(const MaterialApp(
     // home: DynamicPositionExample(),
-    home: ConnectWidge(),
-    // home:Page2(),
+    // home: ConnectWidge(),
+    home:Page2(),
 
     // 注册路由的方式没生效？？？
     // initialRoute: '/page1',  

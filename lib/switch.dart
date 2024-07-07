@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 
+class CustomSwitch extends StatefulWidget {
+  final ValueChanged<bool>? onChanged; // 添加回调函数参数
 
+  const CustomSwitch({Key? key, this.onChanged}) : super(key: key);
 
-class CustomSwitch extends StatefulWidget {  
-  final ValueChanged<bool>? onChanged; // 添加回调函数参数  
-  
-  const CustomSwitch({Key? key, this.onChanged}) : super(key: key);  
-  
-  @override  
-  _CustomSwitchState createState() => _CustomSwitchState();  
-}  
+  @override
+  _CustomSwitchState createState() => _CustomSwitchState();
+}
 
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isSwitchedOn = true;
-  
+  bool _isSwitchedOn = false;
 
   @override
   void initState() {
@@ -34,16 +31,16 @@ class _CustomSwitchState extends State<CustomSwitch>
         setState(() {
           _isSwitchedOn = !_isSwitchedOn;
           _controller.fling(velocity: _isSwitchedOn ? 1.0 : -1.0);
-           // 调用回调函数，并传递新的状态值  
-          widget.onChanged?.call(_isSwitchedOn);  
+          // 调用回调函数，并传递新的状态值
+          widget.onChanged?.call(_isSwitchedOn);
         });
       },
       child: AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget? child) {
           return Container(
-              width: 120,
-              height: 40,
+              width: 130,
+              // height: 40,
               decoration: BoxDecoration(
                 color: _isSwitchedOn
                     ? Color.fromRGBO(255, 255, 255, 0.141)
@@ -51,76 +48,62 @@ class _CustomSwitchState extends State<CustomSwitch>
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Row(
-                children: [
-                  Container(
-                    width: _isSwitchedOn? 60: 33,
-                    height: 40,
-                    margin: _isSwitchedOn
-                        ? EdgeInsets.fromLTRB(9.0, 10.0, 0.0, 0.0)
-                        : EdgeInsets.fromLTRB(3.0, 0.0, 10.0, 0.0), //左、上、右、下
-                    child: _isSwitchedOn
-                        ? Text(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: _isSwitchedOn
+                    ? [
+                        // 暂停状态
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // 设置水平方向的边距为16.0
+                          child: Text(
                             '0:01:59',
                             style: TextStyle(color: Colors.white),
-                          )
-                        : Container(
-                            width: 20,
-                            height: 25,
-
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('images/switch-on1.png'),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: AssetImage('images/switch-on2.png'),
-                                  // width: 50, // 子组件的宽度
-                                  height: 13, // 子组件的高度
-                                ),
-                              ],
-                            ),
                           ),
-                  ),
+                        ),
 
-
-
-                  _isSwitchedOn
-                      ? Container(
-                          width: 50,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('images/switch-off1.png'),
-                            ),
+                        Container(
+                          width: 40,
+                          height: 40,
+                          margin: EdgeInsets.fromLTRB(
+                              3.0, 0.0, 3.0, 0.0), // 设置外边距设置左、上、右、下边
+                          decoration: const BoxDecoration(
+                            color: Colors.grey, // 设置背景颜色为红色
+                            shape: BoxShape.circle, // 设置形状为圆形
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                image: AssetImage('images/switch-off2.png'),
-                                // width: 50, // 子组件的宽度
-                                height: 15, // 子组件的高度
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.all(3.0), // 在所有方向上添加16个逻辑像素的内边距
-                              ),
-                              Image(
-                                image: AssetImage('images/switch-off2.png'),
-                                // width: 5, // 子组件的宽度
-                                height: 15, // 子组件的高度
-                              ),
-                            ],
+                          child: Image(
+                            image: AssetImage('images/switch-off00.png'),
+                            // width: 40, // 子组件的宽度
+                            // height: 15, // 子组件的高度
                           ),
                         )
-                      : Text(
-                          '20:01:59',
-                          style: TextStyle(color: Colors.white),
+                      ]
+                    : [
+                        // 开的状态
+                        Container(
+                          width: 40,
+                          height: 40,
+                          margin: EdgeInsets.fromLTRB(
+                              3.0, 0.0, 3.0, 0.0), // 设置外边距设置左、上、右、下边
+                          decoration: const BoxDecoration(
+                            color: Colors.green, // 设置背景颜色为红色
+                            shape: BoxShape.circle, // 设置形状为圆形
+                          ),
+                          child: Transform.scale(
+                            scale: 0.4, // 缩放比例为0.5
+                            child: Image(
+                              image: AssetImage('images/switch-on0.png'),
+                            ),
+                          ),
                         ),
-                ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // 设置水平方向的边距为16.0
+                          child: Text(
+                            '20:01:59',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ],
               ));
         },
       ),

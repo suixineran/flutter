@@ -112,9 +112,7 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               
-              
               children: <Widget>[
-            
                 // 相机
                 Row(
                   children: [
