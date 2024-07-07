@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'connect.dart';
 import 'dart:math'; // 导入dart:math库
 import 'comp/circle.dart';
-// import 'comp/video-small.dart';
-import 'switch.dart';
+import 'comp/video-small.dart';
+import 'comp/switch.dart';
 import 'comp/img-small.dart';
 import 'comp/target-circl.dart';
 
@@ -57,11 +57,12 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   bool _isSwitchedOn = false;
 
   bool isEnabled = false; // 初始状态为可点击
-  Offset _offset = const Offset(300.0, 0.0);
+  // Offset _offset = const Offset(300.0, 0.0);
 
   late int num;
   late List<int> years; //坐标轴
@@ -78,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isSwitchedOn = true; // 开关的状态
   double _scale = 1.0;
 
+  final GlobalKey _imageKey = GlobalKey();
+  Offset _dragOffset = Offset.zero;
+
   //  接受子组件的传值
   void handleSwitchChanged(bool newValue) {
     setState(() {
@@ -90,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     selectedTarget = -1;
-    _offset = const Offset(5.0, 480.0);
+    _dragOffset = const Offset(-100.0, 430.0);
     num = 30;
     years = List.generate(num, (index) => index);
 
@@ -353,38 +357,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       //  浮动的视频窗口
-      // Positioned(
-      //   left: _offset.dx,
-      //   top: _offset.dy,
-      //   child: Draggable(
-      //     // 使用 Draggable Widget包裹视频播放器
-      //     feedback: Container(
-      //       // width: 200.0,
-      //       // height: 100.0,
-      //       // color: Color.fromARGB(255, 33, 119, 41),
-      //       child: const Center(
-      //         child: VideoPlayerScreenS(),
-      //       ),
-      //     ),
-      //     onDraggableCanceled: (velocity, offset) {
-      //       print(velocity);
-      //       print(offset);
-
-      //       setState(() {
-      //         _offset = offset;
-      //       });
-      //     },
-      //     // 使用 Draggable Widget包裹视频播放器
-      //     child: Container(
-      //       // width: 200.0,
-      //       // height: 150.0,
-      //       color: const Color.fromARGB(255, 5, 5, 5),
-      //       child: const Center(
-      //         child: VideoPlayerScreenS(),
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      Positioned(
+        child: GestureDetector(
+          onPanUpdate: (DragUpdateDetails details) {
+            setState(() {
+              _dragOffset += details.delta;
+              print(details.delta);
+            });
+          },
+          child: Transform.translate(
+            offset: _dragOffset,
+            child: VideoPlayerScreenS(),
+          ),
+        ),
+      ),
     ]);
   }
 }

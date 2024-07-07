@@ -30,7 +30,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
   void start1() async {
     await Future.delayed(const Duration(seconds: 1)); // 等待
     setState(() {
-      _controller.play();
+      // _controller.play();
     });
   }
 
@@ -48,7 +48,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
           future: _initializeVideoPlayerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              print(_controller.value.aspectRatio);
+              // print(_controller.value.aspectRatio);
               return SizedBox(
                 height: 100,
                 child: Center(
