@@ -28,8 +28,6 @@ class DataPoint {
   final double y;
 
   DataPoint(this.index, this.id, this.x, this.y);
-
-  // 你可以根据需要添加其他方法或属性
 }
 
 List<DataPoint> generateRandomDataPoints(
@@ -40,8 +38,10 @@ List<DataPoint> generateRandomDataPoints(
   for (int i = 0; i < count; i++) {
     // 假设ID是基于索引的简单字符串，但你可以根据需要生成更复杂的ID
     String id = 'ID_$i';
-    double randomX = minX + random.nextDouble() * (maxX - minX);
-    double randomY = minY + random.nextDouble() * (maxY - minY);
+    // double randomX = minX + random.nextDouble() * (maxX - minX);
+    // double randomY = minY + random.nextDouble() * (maxY - minY);
+    double randomX = minX + i * 10;
+    double randomY = minY + i * 10;
 
     dataPoints.add(DataPoint(i, id, randomX, randomY));
   }
@@ -82,6 +82,23 @@ class _MyHomePageState extends State<MyHomePage>
   final GlobalKey _imageKey = GlobalKey();
   Offset _dragOffset = Offset.zero;
 
+  void _getImageInfo() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox? renderBox =
+          _imageKey.currentContext?.findRenderObject() as RenderBox?;
+      print('RenderBox');
+      if (renderBox != null) {
+        final size = renderBox.size; // 获取图片的大小
+        final position = renderBox.localToGlobal(Offset.zero); // 获取图片的位置坐标
+
+        print('图片大小: $size');
+        print('图片位置: $position');
+      } else {
+        print('无法获取图片信息');
+      }
+    });
+  }
+
   //  接受子组件的传值
   void handleSwitchChanged(bool newValue) {
     setState(() {
@@ -102,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage>
         List.generate(num, (index) => Random().nextInt(10) + 1); // 生成1到10的随机数字
 
     // 假设我们想要生成10个数据点，X和Y坐标都在0到100的范围内
-    points = generateRandomDataPoints(num, 100.0, 300.0, 200, 400.0);
+    points = generateRandomDataPoints(num, 0.0, 0.0, 0, 400.0);
   }
 
   // 根据数字返回颜色
@@ -175,10 +192,12 @@ class _MyHomePageState extends State<MyHomePage>
                 Container(
                   color: const Color.fromARGB(255, 13, 13, 13),
                   height: 490, // 可以根据需要调整高度
-                  child: const Image(
-                    image: AssetImage('images/target.png'),
-                    // width: 1000,
-                    // height: 1000,
+                  child: Transform.scale(
+                    scale: 1.0, // 放大倍数
+                    child: Image.asset(
+                      'images/target.png', // 替换为你的图片路径
+                      key: _imageKey,
+                    ),
                   ),
                 ),
                 const Positioned(
@@ -200,10 +219,10 @@ class _MyHomePageState extends State<MyHomePage>
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        print(index);
+                        // print(index);
                         selectedTarget = years[index];
                         selectedIndex = index;
-                        print(selectedTarget);
+                        // print(selectedTarget);
 
                         // 打印数据点以验证
                         points.forEach((point) {
@@ -213,6 +232,9 @@ class _MyHomePageState extends State<MyHomePage>
                             top = targetPoint.y;
                           }
                         });
+                        print('left--$left');
+                        print('top--$top');
+                        _getImageInfo();
                       });
                     },
                     child: SizedBox(
@@ -346,31 +368,34 @@ class _MyHomePageState extends State<MyHomePage>
       Visibility(
         visible: selectedTarget != -1, // 一个布尔值，决定是否显示 widget
         child: Positioned(
-          // left: left -100, // 动态设置左边距离
-          // top: top -200, // 动态设置顶部距离
-          left: left + 13, // 动态设置左边距离
-          top: top + 56, // 动态设置顶部距离
-          child: isSwitchedOn
-              ? targetCircleWidget() //红圈
-              : CropImageScreen(x: left, y: top), //放大的区域
-        ),
+            // left: left -100, // 动态设置左边距离
+            // top: top -200, // 动态设置顶部距离
+            left: left + 51, // 动态设置左边距离
+            top: top + 60, // 动态设置顶部距离
+            // left: left, // 动态设置左边距离
+            // top: top , // 动态设置顶部距离
+
+            // child: isSwitchedOn
+            //     ? targetCircleWidget() //红圈
+            //     : CropImageScreen(x: left, y: top), //放大的区域
+            child: CropImageScreen(x: left * 2.41, y: top * 2.41)),
       ),
 
       //  浮动的视频窗口
-      Positioned(
-        child: GestureDetector(
-          onPanUpdate: (DragUpdateDetails details) {
-            setState(() {
-              _dragOffset += details.delta;
-              print(details.delta);
-            });
-          },
-          child: Transform.translate(
-            offset: _dragOffset,
-            child: VideoPlayerScreenS(),
-          ),
-        ),
-      ),
+      // Positioned(
+      //   child: GestureDetector(
+      //     onPanUpdate: (DragUpdateDetails details) {
+      //       setState(() {
+      //         _dragOffset += details.delta;
+      //         print(details.delta);
+      //       });
+      //     },
+      //     child: Transform.translate(
+      //       offset: _dragOffset,
+      //       child: VideoPlayerScreenS(),
+      //     ),
+      //   ),
+      // ),
     ]);
   }
 }
