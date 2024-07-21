@@ -64,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage>
   int _centerIndex = 0;
   Timer? _scrollTimer;
 
-  bool _isSwitchedOn = false;
 
   bool isEnabled = false; // 初始状态为可点击
   // Offset _offset = const Offset(300.0, 0.0);
@@ -83,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   bool isSwitchedOn = true; // 开关的状态
   double _scale = 1.0;
-  double _width = 86.0; // 成绩区域的宽度 总宽度430  每个86 展示5个
+  double _width = 62.0; // 成绩区域的宽度 总宽度430  每个86 展示5个
 
   final GlobalKey _imageKey = GlobalKey();
   Offset _dragOffset = Offset.zero;
@@ -92,15 +91,11 @@ class _MyHomePageState extends State<MyHomePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox? renderBox =
           _imageKey.currentContext?.findRenderObject() as RenderBox?;
-      print('RenderBox');
       if (renderBox != null) {
         final size = renderBox.size; // 获取图片的大小
         final position = renderBox.localToGlobal(Offset.zero); // 获取图片的位置坐标
 
-        print('图片大小: $size');
-        print('图片位置: $position');
       } else {
-        print('无法获取图片信息');
       }
     });
   }
@@ -186,11 +181,6 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  void _onSwitchChanged(bool value) {
-    setState(() {
-      _isSwitchedOn = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 // 记录时间开关
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class CustomSwitch extends StatefulWidget {
   final ValueChanged<bool>? onChanged; // 添加回调函数参数
@@ -13,7 +14,9 @@ class CustomSwitch extends StatefulWidget {
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isSwitchedOn = false;
+  bool _isSwitchedOn = true;
+  late Timer _timer;
+  int _seconds = 0; // 计时器的秒数
 
   @override
   void initState() {
@@ -23,7 +26,25 @@ class _CustomSwitchState extends State<CustomSwitch>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        _seconds++;
+      });
+    });
   }
+
+
+
+
+   String _formatTime(int seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int secs = seconds % 60;
+
+    return '${_twoDigits(hours)}:${_twoDigits(minutes)}:${_twoDigits(secs)}';
+  }
+
+  String _twoDigits(int n) => n.toString().padLeft(2, '0');
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +52,7 @@ class _CustomSwitchState extends State<CustomSwitch>
       onTap: () {
         setState(() {
           _isSwitchedOn = !_isSwitchedOn;
+          _seconds = 0;
           _controller.fling(velocity: _isSwitchedOn ? 1.0 : -1.0);
           // 调用回调函数，并传递新的状态值
           widget.onChanged?.call(_isSwitchedOn);
@@ -57,7 +79,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.0), // 设置水平方向的边距为16.0
                           child: Text(
-                            '0:01:59',
+                            _formatTime(_seconds),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -100,7 +122,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.0), // 设置水平方向的边距为16.0
                           child: Text(
-                            '20:01:59',
+                            _formatTime(_seconds),
                             style: TextStyle(color: Colors.white),
                           ),
                         )
@@ -111,8 +133,10 @@ class _CustomSwitchState extends State<CustomSwitch>
     );
   }
 
+ 
   @override
   void dispose() {
+      _timer.cancel();
     _controller.dispose();
     super.dispose();
   }
