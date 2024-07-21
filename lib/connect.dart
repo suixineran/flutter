@@ -396,7 +396,8 @@ class _MyCustomLayoutState extends State<MyCustomLayout> {
                   if (cameraStatue > 12) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Page2()),
+                      MaterialPageRoute(builder: (context) => Page2()),
+                      
                     );
                   } else {
                     print('不能使用');

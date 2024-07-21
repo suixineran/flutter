@@ -36,6 +36,7 @@ class _VideoPlayerScreenStateS extends State<VideoPlayerScreenS> {
 
   @override
   void dispose() {
+      print('销毁视频222');
     _controller.dispose();
     super.dispose();
   }

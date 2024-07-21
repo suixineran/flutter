@@ -6,6 +6,7 @@ import 'comp/video-small.dart';
 import 'comp/switch.dart';
 import 'comp/img-small.dart';
 import 'comp/target-circl.dart';
+import 'dart:async';
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
@@ -59,6 +60,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
+  final ScrollController _scrollController = ScrollController();
+  int _centerIndex = 0;
+  Timer? _scrollTimer;
+
   bool _isSwitchedOn = false;
 
   bool isEnabled = false; // 初始状态为可点击
@@ -78,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   bool isSwitchedOn = true; // 开关的状态
   double _scale = 1.0;
+  double _width = 86.0; // 成绩区域的宽度 总宽度430  每个86 展示5个
 
   final GlobalKey _imageKey = GlobalKey();
   Offset _dragOffset = Offset.zero;
@@ -114,12 +120,38 @@ class _MyHomePageState extends State<MyHomePage>
     _dragOffset = const Offset(-100.0, 430.0);
     num = 30;
     years = List.generate(num, (index) => index);
-
     valueList =
         List.generate(num, (index) => Random().nextInt(10) + 1); // 生成1到10的随机数字
 
     // 假设我们想要生成10个数据点，X和Y坐标都在0到100的范围内
     points = generateRandomDataPoints(num, 0.0, 0.0, 0, 400.0);
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    _scrollTimer?.cancel();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    _scrollTimer?.cancel();
+
+    //停止滚动后
+    _scrollTimer = Timer(const Duration(milliseconds: 300), () {
+      int centerIndex = (_scrollController.offset / (_width)).round();
+      setState(() {
+        _centerIndex = centerIndex;
+      });
+      _scrollController.animateTo(
+        _centerIndex * (_width),
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   // 根据数字返回颜色
@@ -213,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage>
               // color: Color.fromARGB(255, 220, 22, 22),
               height: 100, // 可以根据需要调整高度
               child: ListView.builder(
+                controller: _scrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: years.length,
                 itemBuilder: (context, index) {
@@ -232,15 +265,13 @@ class _MyHomePageState extends State<MyHomePage>
                             top = targetPoint.y;
                           }
                         });
-                        print('left--$left');
-                        print('top--$top');
-                        _getImageInfo();
+                        // _getImageInfo();
                       });
                     },
                     child: SizedBox(
-                      width: 60, // 刻度的宽度
+                      width: _width, // 刻度的宽度
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Transform.scale(
                             scale: selectedIndex == index ? 1.3 : 1.0, // 应用缩放
@@ -277,6 +308,7 @@ class _MyHomePageState extends State<MyHomePage>
                           Padding(
                             padding: EdgeInsets.only(top: 6.0), // 设置上边距
                           ),
+
                           Container(
                             height: 2, // 刻度线的高度
                             color: Colors.grey, // 刻度线的颜色
@@ -286,7 +318,8 @@ class _MyHomePageState extends State<MyHomePage>
                             height: 5,
                             color: Colors.grey, // 刻度线的颜色
                           ),
-                          const SizedBox(height: 5), // 刻度线和年份的间距
+
+                          const SizedBox(height: 5), // 刻度线和索引的间距
 
                           Text(
                             years[index].toString(),
@@ -313,12 +346,12 @@ class _MyHomePageState extends State<MyHomePage>
                 Container(
                   width: 1,
                   height: 20,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color.fromARGB(255, 245, 246, 245),
-                      width: 0.5, // 设置外边框的宽度
-                    ),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   border: Border.all(
+                  //     color: Color.fromARGB(255, 245, 246, 245),
+                  //     width: 0.5, // 设置外边框的宽度
+                  //   ),
+                  // ),
                   child: const Text(
                     '',
                     style: TextStyle(
@@ -366,36 +399,32 @@ class _MyHomePageState extends State<MyHomePage>
 
       // 选中的子弹效果
       Visibility(
-        visible: selectedTarget != -1, // 一个布尔值，决定是否显示 widget
-        child: Positioned(
-            // left: left -100, // 动态设置左边距离
-            // top: top -200, // 动态设置顶部距离
-            left: left + 51, // 动态设置左边距离
-            top: top + 60, // 动态设置顶部距离
-            // left: left, // 动态设置左边距离
-            // top: top , // 动态设置顶部距离
+          visible: selectedTarget != -1, // 一个布尔值，决定是否显示 widget
+          child: Positioned(
+              left: left + 51, // 动态设置左边距离
+              top: top + 60, // 动态设置顶部距离
 
-            // child: isSwitchedOn
-            //     ? targetCircleWidget() //红圈
-            //     : CropImageScreen(x: left, y: top), //放大的区域
-            child: CropImageScreen(x: left * 2.41, y: top * 2.41)),
-      ),
+              child: isSwitchedOn
+                  ? targetCircleWidget() //红圈
+                  : CropImageScreen(x: left * 2.41, y: top * 2.41)) //放大的区域
+          // child: CropImageScreen(x: left * 2.41, y: top * 2.41)),
+          ),
 
       //  浮动的视频窗口
-      // Positioned(
-      //   child: GestureDetector(
-      //     onPanUpdate: (DragUpdateDetails details) {
-      //       setState(() {
-      //         _dragOffset += details.delta;
-      //         print(details.delta);
-      //       });
-      //     },
-      //     child: Transform.translate(
-      //       offset: _dragOffset,
-      //       child: VideoPlayerScreenS(),
-      //     ),
-      //   ),
-      // ),
+      Positioned(
+        child: GestureDetector(
+          onPanUpdate: (DragUpdateDetails details) {
+            setState(() {
+              _dragOffset += details.delta;
+              print(details.delta);
+            });
+          },
+          child: Transform.translate(
+            offset: _dragOffset,
+            child: VideoPlayerScreenS(),
+          ),
+        ),
+      ),
     ]);
   }
 }
