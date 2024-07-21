@@ -14,7 +14,7 @@ class CropImageScreen extends StatefulWidget {
 
 class _CropImageScreenState extends State<CropImageScreen> {
   ui.Image? _image;
-  late double w = 60; // 小图片的大小 正方形
+  late double w = 65; // 小图片的大小 正方形
 
   @override
   void initState() {
@@ -33,21 +33,32 @@ class _CropImageScreenState extends State<CropImageScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: _image != null
-          ? CustomPaint(
+          ? Stack(
+      alignment: Alignment.center,
+      children: [
+        // 圆环
+        CustomPaint(
+          size: Size(w, w),
+          painter: RingPainter(),
+        ),
+        // 圆形图片
+         CustomPaint(
               painter: CropPainter(_image!, widget.x, widget.y, w),
               child: Container(
-                decoration:  BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 2.0,
-                    ),
-                    ),
+                // decoration:  BoxDecoration(
+                //     border: Border.all(
+                //       color: Colors.white,
+                //       width: 2.0,
+                //     ),
+                //     ),
 
                 width: w,
                 height: w,
               ),
             )
-          : const CircularProgressIndicator(),
+      ],
+    ): const CircularProgressIndicator(),
+          
     );
   }
 }
@@ -75,11 +86,56 @@ class CropPainter extends CustomPainter {
       w * 1.21,
       
     ); // 要画照片的哪一部分
-    canvas.drawImageRect(image, src, rect, Paint());
+    // canvas.drawImageRect(image, src, rect, Paint());
+
+
+ // 创建一个Path对象  
+    final Path path = Path();  
+    // 添加一个圆形到Path中，这里假设我们想要裁剪出一个居中的圆形  
+    final double radius = size.width / 2.0; // 假设我们想要一个正方形区域中的最大圆形  
+    path.addOval(Rect.fromCenter(center: Offset(size.width / 2, size.height / 2), width: 2 * radius, height: 2 * radius));  
+  
+    // 使用clipPath来裁剪Canvas  
+    canvas.clipPath(path);  
+  
+    // 现在Canvas已经被裁剪成圆形了，你可以在这里绘制任何东西，它都只会显示在圆形区域内  
+    final Paint paint = Paint()..color = Colors.blue;  
+
+     canvas.drawImageRect(image, src, rect, Paint());
+
+    // canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint); // 绘制一个蓝色的矩形，但它只会在圆形区域内显示  
+
+
+
+
+
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
+
+class RingPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.white // 设置画笔颜色为绿色
+      ..style = PaintingStyle.stroke // 填充样式为描边
+      ..strokeWidth = 4.0; // 设置描边宽度
+
+    double radius = size.width / 2;
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2), // 圆心坐标
+      radius, // 半径
+      paint, // 画笔
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }
 }

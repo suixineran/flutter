@@ -265,6 +265,9 @@ class _MyHomePageState extends State<MyHomePage>
                             top = targetPoint.y;
                           }
                         });
+                        print('left$left');
+                        print('top$top');
+                        
                         // _getImageInfo();
                       });
                     },
@@ -407,24 +410,23 @@ class _MyHomePageState extends State<MyHomePage>
               child: isSwitchedOn
                   ? targetCircleWidget() //红圈
                   : CropImageScreen(x: left * 2.41, y: top * 2.41)) //放大的区域
-          // child: CropImageScreen(x: left * 2.41, y: top * 2.41)),
           ),
 
       //  浮动的视频窗口
-      Positioned(
-        child: GestureDetector(
-          onPanUpdate: (DragUpdateDetails details) {
-            setState(() {
-              _dragOffset += details.delta;
-              print(details.delta);
-            });
-          },
-          child: Transform.translate(
-            offset: _dragOffset,
-            child: VideoPlayerScreenS(),
-          ),
-        ),
-      ),
+      // Positioned(
+      //   child: GestureDetector(
+      //     onPanUpdate: (DragUpdateDetails details) {
+      //       setState(() {
+      //         _dragOffset += details.delta;
+      //         print(details.delta);
+      //       });
+      //     },
+      //     child: Transform.translate(
+      //       offset: _dragOffset,
+      //       child: VideoPlayerScreenS(),
+      //     ),
+      //   ),
+      // ),
     ]);
   }
 }

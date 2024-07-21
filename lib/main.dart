@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'actual-target.dart';
-import 'comp/img.dart';
 import 'connect.dart';
 
 
