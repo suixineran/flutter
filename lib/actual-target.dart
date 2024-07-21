@@ -4,7 +4,7 @@ import 'dart:math'; // 导入dart:math库
 import 'comp/circle.dart';
 import 'comp/video-small.dart';
 import 'comp/switch.dart';
-import 'comp/img-small.dart';
+import 'comp/target-small.dart';
 import 'comp/target-circl.dart';
 import 'dart:async';
 
@@ -403,20 +403,20 @@ class _MyHomePageState extends State<MyHomePage>
           ),
 
       //  浮动的视频窗口
-      // Positioned(
-      //   child: GestureDetector(
-      //     onPanUpdate: (DragUpdateDetails details) {
-      //       setState(() {
-      //         _dragOffset += details.delta;
-      //         print(details.delta);
-      //       });
-      //     },
-      //     child: Transform.translate(
-      //       offset: _dragOffset,
-      //       child: VideoPlayerScreenS(),
-      //     ),
-      //   ),
-      // ),
+      Positioned(
+        child: GestureDetector(
+          onPanUpdate: (DragUpdateDetails details) {
+            setState(() {
+              _dragOffset += details.delta;
+              print(details.delta);
+            });
+          },
+          child: Transform.translate(
+            offset: _dragOffset,
+            child: VideoPlayerScreenS(),
+          ),
+        ),
+      ),
     ]);
   }
 }
